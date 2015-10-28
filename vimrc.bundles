@@ -1,0 +1,104 @@
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#begin()
+
+" Define bundles via Github repos
+Bundle 'christoomey/vim-run-interactive'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'croaky/vim-colors-github'
+Bundle 'majutsushi/tagbar'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'kien/ctrlp.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'slim-template/vim-slim'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'tpope/vim-bundler'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'vim-scripts/ctags.vim'
+Bundle 'vim-scripts/matchit.zip'
+Bundle 'vim-scripts/tComment'
+Bundle "mattn/emmet-vim"
+Bundle "scrooloose/nerdtree"
+Bundle "Lokaltog/vim-powerline"
+Bundle "msanders/snipmate.vim"
+Bundle "jelera/vim-javascript-syntax"
+Bundle "altercation/vim-colors-solarized"
+Bundle "othree/html5.vim"
+Bundle "xsbeats/vim-blade"
+Bundle "Raimondi/delimitMate"
+Bundle "groenewege/vim-less"
+Bundle "evanmiller/nginx-vim-syntax"
+Bundle "Lokaltog/vim-easymotion"
+Bundle "tomasr/molokai"
+Bundle "klen/python-mode"
+Bundle "godlygeek/tabular"
+Bundle "tmhedberg/matchit"
+Bundle "pbrisbin/vim-mkdir"
+Bundle "danro/rename.vim"
+Bundle "fatih/vim-go"
+Bundle "cespare/vim-golang"
+Bundle "dgryski/vim-godef"
+Bundle "Blackrush/vim-gocode"
+Bundle "jiangmiao/auto-pairs"
+
+call vundle#end()
+filetype plugin indent on
+
+"YouCompleteMe setting
+"配置默认的ycm_extra_conf.py
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+"按,jd会跳转到定义
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>  
+"打开vim时不再询问是否加载ycm_extra_conf.p配置
+let g:ycm_confirm_extra_conf=0   
+"使用ctags生成的tags文件"
+let g:ycm_collect_identifiers_from_tag_files = 1 
+
+" NERD tree setting
+let NERDChristmasTree=0
+let NERDTreeWinSize=25
+let NERDTreeChDirMode=2
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
+let NERDTreeShowBookmarks=1
+let NERDTreeWinPos="left"
+" Automatically open a NERDTree if no files where specified
+autocmd vimenter * if !argc() | NERDTree | endif
+" Close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" Open a NERDTree
+nmap <F2> :NERDTreeToggle<cr>
+
+" Tagbar
+let g:tagbar_width=15
+let g:tagbar_autofocus=1
+nmap <F3> :TagbarToggle<CR>
+
+" ctrap
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.png,*.jpg,*.jpeg,*.gif "MacOSX/Linux
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+endif
+
+set laststatus=2 " Always display the status line
+set statusline+=%{fugitive#statusline()} "  Git Hotness
+
+" Run commands that require an interactive shell
+nnoremap <Leader>r :RunInInteractiveShell<space>
+
+" configure syntastic syntax checking to check on open as well as save
+let g:syntastic_check_on_open=1
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
