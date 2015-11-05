@@ -44,6 +44,12 @@ Bundle "cespare/vim-golang"
 Bundle "dgryski/vim-godef"
 Bundle "Blackrush/vim-gocode"
 Bundle "jiangmiao/auto-pairs"
+Bundle "nathanaelkane/vim-indent-guides"
+
+" html/xml标签配对补全
+Bundle "docunext/closetag.vim"
+" 快速注释
+Bundle "scrooloose/nerdcommenter"
 
 call vundle#end()
 filetype plugin indent on
@@ -52,7 +58,7 @@ filetype plugin indent on
 "配置默认的ycm_extra_conf.py
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 "按,jd会跳转到定义
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>  
+nnoremap <Leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>  
 "打开vim时不再询问是否加载ycm_extra_conf.p配置
 let g:ycm_confirm_extra_conf=0   
 "使用ctags生成的tags文件"
@@ -102,3 +108,11 @@ let g:syntastic_check_on_wq = 0
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+" 缩进可视化随vim自启动
+let g:indent_guides_enable_on_vim_startup=1
+" 从第二层开始可视化显示缩进
+let g:indent_guides_start_level=2
+" 色块宽度
+let g:indent_guides_guide_size=2
+
