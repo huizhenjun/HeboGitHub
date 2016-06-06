@@ -1,11 +1,10 @@
+" set <leader>
+let mapleader=";"
+
 if filereadable(expand("~/.vimrc.bundles"))
 source ~/.vimrc.bundles
 endif
 
-syntax on
-
-" set <leader>
-let mapleader=";"
 
 " Color scheme
 colorscheme solarized
@@ -39,8 +38,8 @@ au WinLeave * set nocursorline nocursorcolumn
 au WinEnter * set cursorline cursorcolumn
 set cursorline cursorcolumn
 
-set ignorecase
-" set autoindent
+set noignorecase
+set autoindent
 " set smartindent
 
 set mouse=a
@@ -49,13 +48,34 @@ set mouse=a
 vnoremap <Leader>y "+y
 vnoremap <Leader>p "+p
 vnoremap <Leader>P "+P
-noremap <Leader>yy "+yy
-noremap <Leader>p "+p
-noremap <Leader>P "+P
+nnoremap <Leader>yy "+yy
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+" show the matching part of the pair for [] {} and ()
+set showmatch
 
-" 缩进可视化随vim自启动 
-let g:indent_guides_enable_on_vim_startup=1 
-" 从第二层开始可视化显示缩进 
-let g:indent_guides_start_level=2 
-" 色块宽度 
-let g:indent_guides_guide_size=1
+set modifiable
+
+" enable all Python syntax highlighting features
+let python_highlight_all = 1
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable folding
+" set foldmethod=indent
+" set foldlevel=99
+" nnoremap <CR> za
+
+autocmd FileType *html* imap <Leader>cc <c-y>/ 
+autocmd FileType *html* map <Leader>cc <c-y>/ 
+autocmd FileType *xml* imap <Leader>cc <c-y>/ 
+autocmd FileType *xml* map <Leader>cc <c-y>/ 
+
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+nnoremap <Leader>r :!<space>
